@@ -41,8 +41,8 @@ public class HomeController
 		return "delete";
 	}
 	
-	@PutMapping(value="/updatedata")
-	public String updatedata(@PathVariable ("id") int id,@ModelAttribute Employee e)
+	@PutMapping(value="/updatedata/{id}")
+	public String updatedata(@PathVariable ("id") int id,@RequestBody Employee e)
 	{
 		hs.savedata(e);
 		return "update";
