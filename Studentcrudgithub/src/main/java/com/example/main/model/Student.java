@@ -20,3 +20,10 @@ public class Student
 	private String mobno;
 	private String emailid;
 }
+class B
+{
+	int a;
+	int b;
+	int sum=a+b;
+}
+	
