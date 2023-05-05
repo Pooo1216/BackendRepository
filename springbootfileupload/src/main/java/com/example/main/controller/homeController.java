@@ -48,16 +48,28 @@ public class homeController
 	}
 	
 	@DeleteMapping(value = "/deletedoc/{docId}")
-	public String deletedata(@PathVariable ("docId") int docId,@ModelAttribute Document d)
+	public void deletedata(@PathVariable ("docId") int docId,
+			@RequestParam("custId") String data) throws IOException
 	{
-		hsi.deletedata(d);
-		return "delete";
+		ObjectMapper om=new ObjectMapper();
+		Document dd=om.readValue(data,Document.class);
+		dd.setDocId(docId);
+		hsi.deletedata(dd);
+		
 	}
 	
-	@PutMapping(value = "/updatedoc/{docId}")
-	public String updatedata(@PathVariable ("docId") int docId,@RequestBody Document d)
+	@PutMapping(value="/updatedoc/{docId}")
+	public Document updatedata(@PathVariable("docId")int docId, @RequestParam("photo") MultipartFile file1,
+			@RequestParam("pancard") MultipartFile file2,
+			@RequestParam("custId") String data) throws IOException
 	{
-		hsi.saveDocument(d);
-		return "update";
+		ObjectMapper om=new ObjectMapper();
+		Document dd=om.readValue(data, Document.class);
+		dd.setDocId(docId);
+		dd.setPhoto(file1.getBytes());
+		dd.setPancard(file2.getBytes());
+		return hsi.saveDocument(dd);
 	}
+	
+	
 }
