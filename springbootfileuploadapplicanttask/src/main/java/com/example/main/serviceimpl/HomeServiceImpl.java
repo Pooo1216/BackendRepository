@@ -1,5 +1,7 @@
 package com.example.main.serviceimpl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +30,18 @@ public class HomeServiceImpl implements HomeServiceI
 	}
 
 	@Override
-	public void deletedata(Applicant ac) 
-	{
-		ar.delete(ac);
+	public void deletedata(int appId) {
+		ar.deleteById(appId);		
 	}
+
+	@Override
+	public Optional<Applicant> getsingleapplicant(int appId) 
+	{
+		return ar.findById(appId);
+	}
+
+	
+
+	
+	
 }
